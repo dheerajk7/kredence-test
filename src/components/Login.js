@@ -8,6 +8,10 @@ class Login extends Component {
         username: "",
         password: "",
       },
+      userList: [
+        { username: "admin", password: "admin" },
+        { username: "test", password: "test123" },
+      ],
     };
   }
 
@@ -23,6 +27,21 @@ class Login extends Component {
       this.setState({
         formInput: { ...this.state.formInput, password: value },
       });
+    }
+  };
+
+  handleLogIn = (e) => {
+    e.preventDefault();
+    const { username, password } = this.state.formInput;
+    const { userList } = this.state;
+    console.log(username, userList, password);
+    for (let user of userList) {
+      console.log(user);
+      if (user.username === username.toLowerCase()) {
+        if (user.password === password.toLowerCase()) {
+          this.props.setLoggedInToTrue();
+        }
+      }
     }
   };
 
@@ -52,7 +71,7 @@ class Login extends Component {
               value={password}
             />
           </div>
-          <button className="btn" type="submit">
+          <button className="btn" type="submit" onClick={this.handleLogIn}>
             Login
           </button>
         </form>
