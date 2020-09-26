@@ -3,8 +3,15 @@ import React, { Component } from "react";
 class Home extends Component {
   constructor(props) {
     super(props);
+    // reference to dropdown on home
     this.dropdown = React.createRef();
+    // the task id from which new task should be added with these id
     this.currentTaskId = 201;
+    // state to manage task related things
+    // showing add task option
+    // showing task list after getting it from API
+    // active item in dropdown
+    // managing form input for adding new task
     this.state = {
       isTaskPageActive: false,
       showAddTask: false,
@@ -37,6 +44,7 @@ class Home extends Component {
     this.fetchTaskFromAPI();
   }
 
+  // function to fetch list of task from API
   fetchTaskFromAPI = () => {
     fetch("http://jsonplaceholder.typicode.com/todos", {
       method: "GET",
@@ -47,26 +55,32 @@ class Home extends Component {
       });
   };
 
+  // showing of clicking on home button in Navbar
   handleHomeClick = () => {
     this.setState({ isTaskPageActive: false });
   };
 
+  // showing task list on clicking task button in navbar
   handleTaskClick = () => {
     this.setState({ isTaskPageActive: true });
   };
 
+  // logging out user on clicking logout button
   handleLogout = () => {
     this.props.setLoggedInToFalse();
   };
 
+  // showing add task option on clicking add task
   handleTaskButton = () => {
     this.setState({ showAddTask: !this.state.showAddTask });
   };
 
+  // handling item change in dropdown menu
   handleChange = () => {
     this.setState({ activeItem: this.dropdown.current.value });
   };
 
+  // deleting task with id
   handleDelete = (id) => {
     let taskList = this.state.taskList;
     for (let i = 0; i < taskList.length; i++) {
@@ -77,6 +91,7 @@ class Home extends Component {
     this.setState({ taskList: taskList });
   };
 
+  // handle input change for addding new item in task
   handleInputChange = (e) => {
     this.setState({
       formInput: {
@@ -85,6 +100,7 @@ class Home extends Component {
     });
   };
 
+  // adding new task in list with task id
   addNewTask = (e) => {
     e.preventDefault();
     const { title } = this.state.formInput;
@@ -92,6 +108,7 @@ class Home extends Component {
     if (title.length === 0) {
       return;
     }
+    // creating new task
     let task = {
       id: this.currentTaskId,
       title,
@@ -99,6 +116,7 @@ class Home extends Component {
       userId: this.props.userID,
     };
 
+    // adding new task
     let newTaskList = [task, ...taskList];
     this.currentTaskId++;
     this.setState({
@@ -110,6 +128,7 @@ class Home extends Component {
     });
   };
 
+  // rendering home component
   render() {
     const {
       list,

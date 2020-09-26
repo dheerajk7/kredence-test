@@ -2,6 +2,9 @@ import React, { Component } from "react";
 
 class Login extends Component {
   constructor(props) {
+    // login component state
+    // to maintain userlist with username and password
+    // managing form data as well
     super(props);
     this.state = {
       formInput: {
@@ -15,6 +18,7 @@ class Login extends Component {
     };
   }
 
+  // setting up form input change in state
   handleChange = (e) => {
     let label = e.target.id;
     let value = e.target.value;
@@ -30,6 +34,7 @@ class Login extends Component {
     }
   };
 
+  // perform login action to authenticate user
   handleLogIn = (e) => {
     e.preventDefault();
     const { username, password } = this.state.formInput;
@@ -43,6 +48,7 @@ class Login extends Component {
     }
   };
 
+  // rendering login component
   render() {
     const { username, password } = this.state.formInput;
     return (
