@@ -9,8 +9,8 @@ class Login extends Component {
         password: "",
       },
       userList: [
-        { username: "admin", password: "admin" },
-        { username: "test", password: "test123" },
+        { id: 123, username: "admin", password: "admin" },
+        { id: 321, username: "test", password: "test123" },
       ],
     };
   }
@@ -34,12 +34,10 @@ class Login extends Component {
     e.preventDefault();
     const { username, password } = this.state.formInput;
     const { userList } = this.state;
-    console.log(username, userList, password);
     for (let user of userList) {
-      console.log(user);
       if (user.username === username.toLowerCase()) {
         if (user.password === password.toLowerCase()) {
-          this.props.setLoggedInToTrue();
+          this.props.setLoggedInToTrue(user.id);
         }
       }
     }

@@ -7,20 +7,21 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: true,
+      isLoggedIn: false,
+      activeUserId: null,
     };
   }
 
-  setLoggedInToTrue = () => {
-    this.setState({ isLoggedIn: true });
+  setLoggedInToTrue = (id) => {
+    this.setState({ isLoggedIn: true, activeUserId: id });
   };
 
   setLoggedInToFalse = () => {
-    this.setState({ isLoggedIn: false });
+    this.setState({ isLoggedIn: false, activeUserId: null });
   };
 
   render() {
-    const { isLoggedIn } = this.state;
+    const { isLoggedIn, activeUserId } = this.state;
     return (
       <div className="App">
         {isLoggedIn ? (
@@ -32,6 +33,7 @@ class App extends Component {
           <Login
             setLoggedInToTrue={this.setLoggedInToTrue}
             isLoggedIn={isLoggedIn}
+            userID={activeUserId}
           />
         )}
       </div>
